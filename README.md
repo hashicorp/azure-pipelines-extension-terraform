@@ -2,9 +2,11 @@
 
 This repository contains the source for an Azure Pipelines extension that provides Tasks to easily install and use Terraform.
 
-## Usage
+This extension provides a `TerraformInstaller` task to ease in installing specific Terraform versions, as well as a `Terraform` task to help call Terraform without needing to manage authentication yourself.  The `Terraform` task wraps `init`, `plan`, `validate`, `apply`, and `destroy` commands, as well as providing a `CLI` option.
 
-Once the task has been installed from you can use it in any Azure Pipelines build or release job.  It is available in both the GUI pipeline editor as well as yaml templates.
+`CLI` is used to execute a custom script in a pre-authenticated environment.  This can be a great option if you need to use more complex terraform scripts, such as gathering output and setting it to a Piplelines variable (see example below).
+
+Once this task has been added to your Organization from the Azure DevOps Marketplace you can use it in any Azure Pipelines build or release job.  It is available in both the GUI pipeline editor as well as yaml templates.
 
 ## Options
 
@@ -114,5 +116,12 @@ steps:
 
       # Plan
       terraform plan -input=false -out=testplan.tf
+
+      # Get output
+        STORAGE_ACCOUNT=`terraform output storage_account`
+
+      # Set storageAccountName variable from terraform output
+      echo "##vso[task.setvariable variable=storageAccountName]$STORAGE_ACCOUNT"
     displayName: Execute Terraform CLI Script
+    
 ```
