@@ -56,7 +56,7 @@ Once this task has been added to your Organization from the Azure DevOps Marketp
 
 #### Install Terraform
 
-```
+```yaml
 pool:
   vmImage: 'Ubuntu-16.04'
 
@@ -70,7 +70,7 @@ steps:
 #### Init, plan, and apply
 You can invoke the task in a yaml template using the following syntax:
 
-```
+```yaml
 pool:
   vmImage: 'Ubuntu-16.04'
 
@@ -100,7 +100,7 @@ steps:
 #### Execute a Terraform-authenticated CLI Script
 
 
-```
+```yaml
 pool:
   vmImage: 'Ubuntu-16.04'
 
