@@ -3,7 +3,7 @@
     "id": "terraform-pipelines-extension-dev",
     "name": "Terraform",
     "version": "0.0.1",
-    "publisher": "jlorich",
+    "publisher": "hashicorp",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
