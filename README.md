@@ -118,7 +118,7 @@ steps:
       terraform plan -input=false -out=testplan.tf
 
       # Get output
-        STORAGE_ACCOUNT=`terraform output storage_account`
+      STORAGE_ACCOUNT=`terraform output storage_account`
 
       # Set storageAccountName variable from terraform output
       echo "##vso[task.setvariable variable=storageAccountName]$STORAGE_ACCOUNT"
