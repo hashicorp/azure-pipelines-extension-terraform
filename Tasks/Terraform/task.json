@@ -1,0 +1,239 @@
+{
+    "id": "653507a3-d921-47dc-8fed-c5649d8e9e0e",
+    "name": "terraform",
+    "friendlyName": "Terraform",
+    "description": "A task for running Terraform commands",
+    "helpMarkDown": "",
+    "category": "Tool",
+    "author": "HashiCorp",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 1
+    },
+    "instanceNameFormat": "Terraform",
+    "groups": [
+        {
+            "name": "backendAzure",
+            "displayName": "Azure Backend Configuration",
+            "isExpanded": true,
+            "visibleRule": "backend = Azure"
+        },
+        {
+            "name": "CLI",
+            "displayName": "CLI Script",
+            "isExpanded": true,
+            "visibleRule": "command = CLI"
+        },
+        {
+            "name": "advanced",
+            "displayName": "Advanced",
+            "isExpanded": false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "command",
+            "type": "picklist",
+            "label": "Command",
+            "defaultValue": "init",
+            "required": true,
+            "helpMarkDown": "Select the Terraform command to run, or select CLI to run a Terraform command line script in an authenticated environment.",
+            "options": {
+                "init": "init",
+                "plan": "plan",
+                "apply": "apply",
+                "validate": "validate",
+                "destroy": "destroy",
+                "CLI": "CLI"
+            }
+        },
+        {
+            "name": "provider",
+            "type": "picklist",
+            "label": "Provider",
+            "defaultValue": "Azure",
+            "required": true,
+            "helpMarkDown": "Select a Terraform provider",
+            "visibleRule": "command != init && command != validate",
+            "options": {
+                "Azure": "Azure",
+                "AWS": "AWS",
+                "GCP": "GCP",
+                "Remote": "Remote"
+            }
+        },
+
+        {
+            "name": "providerAzureConnectedServiceName",
+            "type": "connectedService:AzureRM",
+            "label": "Provider Azure subscription",
+            "required": true,
+            "helpMarkDown": "Select the Azure Resource Manager subscription your Terraform will execute against.",
+            "visibleRule": "provider = Azure",
+            "properties": {
+                "EndpointFilterRule": "ScopeLevel != ManagementGroup"
+            }
+        },
+        {
+            "name": "scriptLocation",
+            "type": "pickList",
+            "label": "Script Location",
+            "defaultValue": "inlineScript",
+            "required": false,
+            "helpMarkDown": "Type of script: File path or Inline script",
+            "options": {
+                "inlineScript": "Inline script",
+                "scriptPath": "Script path"
+            },
+            "groupName": "CLI"
+        },
+        {
+            "name": "scriptPath",
+            "type": "filePath",
+            "label": "Script Path",
+            "defaultValue": "",
+            "required": false,
+            "visibleRule": "scriptLocation = scriptPath",
+            "helpMarkDown": "Fully qualified path of the script(.bat or .cmd when using Windows based agent and .sh when using linux based agent) or a path relative to the the default working directory",
+            "groupName": "CLI"
+        },
+        {
+            "name": "script",
+            "type": "multiLine",
+            "label": "Inline Script",
+            "defaultValue": "",
+            "required": false,
+            "visibleRule": "scriptLocation = inlineScript",
+            "helpMarkDown": "You can write your terraform scripts inline here",
+            "properties": {
+                "resizable": "true",
+                "rows": "10",
+                "maxLength": "5000"
+            },
+            "groupName": "CLI"
+        },
+        {
+            "name": "initialize",
+            "type": "bool",
+            "label": "Initialize Terraform",
+            "defaultValue": "true",
+            "visibleRule": "command = CLI",
+            "required": false,
+            "helpMarkDown": "Initializes terraform for the CLI"
+        },
+
+        {
+            "name": "backend",
+            "type": "picklist",
+            "label": "Backend",
+            "defaultValue": "Azure",
+            "required": true,
+            "helpMarkDown": "Select a backend for your Terraform state",
+            "visibleRule": "command = init || initialize = true",
+            "options": {
+                "Azure": "Azure",
+                "AWS": "AWS",
+                "GCP": "GCP",
+                "Remote": "Remote"
+            }
+        },
+        
+
+        {
+            "name": "backendAzureUseProviderConnectedServiceForBackend",
+            "type": "bool",
+            "label": "Use provider connection for backend",
+            "defaultValue": "true",
+            "required": false,
+            "helpMarkDown": "Uses the providers connected service to access the storage backend",
+            "groupName": "backendAzure"
+        },
+        {
+            "name": "backendAzureConnectedServiceName",
+            "type": "connectedService:AzureRM",
+            "label": "Backend Azure subscription",
+            "required": true,
+            "helpMarkDown": "Select the Azure Resource Manager subscription your Terraform backend will live in.",
+            "visibleRule": "backendAzureUseProviderConnectedServiceForBackend = false",
+            "properties": {
+                "EndpointFilterRule": "ScopeLevel != ManagementGroup"
+            },
+            "groupName": "backendAzure"
+        },
+        {
+            "name": "backendAzureStorageAccountName",
+            "type": "pickList",
+            "label": "Azure Storage Account",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Specify a pre-existing ARM storage account. It will be used to store your backend Terraform state.",
+            "visibleRule": "backendAzureUseProviderConnectedServiceForBackend = false",
+            "properties": {
+                "EditableOptions": "True"
+            },
+            "groupName": "backendAzure"
+        },
+        {
+            "name": "backendAzureProviderStorageAccountName",
+            "type": "pickList",
+            "label": "Azure Storage Account",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Specify a pre-existing ARM storage account. It will be used to store your backend Terraform state.",
+            "visibleRule": "backendAzureUseProviderConnectedServiceForBackend = true",
+            "properties": {
+                "EditableOptions": "True"
+            },
+            "groupName": "backendAzure"
+        },
+        {
+            "name": "backendAzureContainerName",
+            "type": "string",
+            "label": "Container name",
+            "defaultValue": "tfstate",
+            "required": true,
+            "helpMarkDown": "Name of the storage container to keep the Terraform state.",
+            "groupName": "backendAzure"
+        },
+        {
+            "name": "backendAzureStateFileKey",
+            "type": "string",
+            "label": "State file key",
+            "defaultValue": "terraform.tfstate",
+            "required": true,
+            "helpMarkDown": "Name of the state file to use in the Terraform backend.",
+            "groupName": "backendAzure"
+        },
+        {
+            "name": "args",
+            "type": "string",
+            "label": "Additional Arguments",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "advanced",
+            "helpMarkDown": "Additional arguments to pass"
+        } 
+    ],
+    "dataSourceBindings": [
+        {
+            "target": "backendAzureProviderStorageAccountName",
+            "endpointId": "$(providerAzureConnectedServiceName)",
+            "dataSourceName": "AzureStorageAccountRMandClassic"
+        },
+        {
+            "target": "backendAzureStorageAccountName",
+            "endpointId": "$(backendAzureConnectedServiceName)",
+            "dataSourceName": "AzureStorageAccountRMandClassic"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": ".bin/src/Index.js"
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "manifestVersion": 1,
+    "id": "terraform-pipelines-extension-dev",
+    "name": "Terraform",
+    "version": "0.0.1",
+    "publisher": "jlorich",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Task for running Terraform on Azure, AWS, GCP, and Terraform Cloud/Enterprise",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "files": [
+        {
+            "path": "Tasks/TerraformInstaller"
+        },
+        {
+            "path": "Tasks/Terraform"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "9b9f2e72-30c3-432b-a835-dd2b1160f3b5",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/TerraformInstaller"
+            }
+        },
+        {
+            "id": "653507a3-d921-47dc-8fed-c5649d8e9e0e",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Terraform"
+            }
+        }
+    ]
+}

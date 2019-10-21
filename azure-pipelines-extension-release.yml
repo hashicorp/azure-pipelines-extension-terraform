@@ -1,0 +1,35 @@
+parameters:
+  serviceUrl: 
+
+jobs:
+- job: release
+  displayName: Publish
+
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  
+  steps:
+  # Do not clone from git for this job
+  - checkout: none
+
+  # Download the published extension artifact to deploy
+  - download: current
+    artifact: extension
+
+  # Publish the extension to Azure DevOps
+  - script: |
+      # Display command output and fail immediately on any errors
+      set -e -x
+
+      # Install the latext command line task for publishing extensions
+      sudo npm install -g tfx-cli
+
+      # Publish the extension
+      tfx extension publish \
+        --token $PERSONAL_ACCESS_TOKEN \
+        --service-url https://marketplace.visualstudio.com \
+        --no-prompt
+    env:
+      PERSONAL_ACCESS_TOKEN: $(PersonalAccessToken)
+    workingDirectory: $(Pipeline.Workspace)/extension
+    displayName: Publish the extension

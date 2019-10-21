@@ -1,0 +1,62 @@
+parameters:
+  tasksDirectory: Tasks
+  taskName:
+
+steps:
+
+# Update package vertions
+- script: |
+    # Display command output and fail immediately on any errors
+    set -e -x
+
+    # Set the package version
+    sed -i -E 's/"version":\s"[0-9/.]+"/"version": "$(GitVersion.MajorMinorPatch)"/g' package.json
+
+    # Set the task version
+    sed -i -E 's/"Major":\s[0-9]+/"Major": $(GitVersion.Major)/g' task.json
+    sed -i -E 's/"Minor":\s[0-9]+/"Minor": $(GitVersion.Minor)/g' task.json
+    sed -i -E 's/"Patch":\s[0-9]+/"Patch": $(GitVersion.Patch)/g' task.json
+
+    cat task.json
+
+  workingDirectory: ./${{ parameters.tasksDirectory }}/${{ parameters.taskName }}
+  displayName: Set versions for the ${{ parameters.taskName }} task
+
+# Built and test the extension
+- script: |
+    # Display command output and fail immediately on any errors
+    set -e -x
+
+    # Install NPM Packages
+    npm install --dev
+    
+    # Build typescript
+    tsc --build
+
+    # Run tests
+   
+  workingDirectory: ./${{ parameters.tasksDirectory }}/${{ parameters.taskName }}
+  displayName: Build and test the ${{ parameters.taskName }} task
+
+# Prune and copy files to the artifact staging directory
+- script: |
+    # Display command output and fail immediately on any errors
+    set -e -x
+
+    # Remove all dev dependencies prior to release
+    npm prune --production
+    
+    # Ensure the destination path exists
+    mkdir -p $(Build.StagingDirectory)/Tasks/
+
+    # Copy all task files to the staging output path
+    rsync -avr \
+      --include=.bin/*** \
+      --include=node_modules/*** \
+      --include=package.json \
+      --include=package-lock.json \
+      --include=task.json \
+      --exclude=* \
+      ./ $(Build.StagingDirectory)/Tasks/${{ parameters.taskName }}
+  workingDirectory: ./${{ parameters.tasksDirectory }}/${{ parameters.taskName }}
+  displayName: Package the ${{ parameters.taskName }} task for release

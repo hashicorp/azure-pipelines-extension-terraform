@@ -1,0 +1,14 @@
+jobs:
+# Validates a valid template
+- job: Installer
+  displayName: Test Installer
+  dependsOn:
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  # Run the Terraform installer.  It self-validates so no need to check beyond this
+  - task: terraformInstaller@0
+    inputs:
+      terraformVersion: '0.12.3'
+    displayName: Install Terraform

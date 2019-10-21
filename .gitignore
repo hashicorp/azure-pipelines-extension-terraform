@@ -1,0 +1,8 @@
+*.vsix
+node_modules/
+.taskkey
+.env
+.bin/
+.dist/
+.terraform/
+*.tfstate*

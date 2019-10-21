@@ -1,0 +1,49 @@
+{
+    "id": "9b9f2e72-30c3-432b-a835-dd2b1160f3b5",
+    "name": "terraformInstaller",
+    "friendlyName": "Terraform tool installer",
+    "description": "Find in cache or download a specific version of Terraform and prepend it to the PATH",
+    "author": "HashiCorp",
+    "helpMarkDown": "",
+    "category": "Tool",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "demands": [],
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 1
+    },
+    "instanceNameFormat": "Install Terraform $(terraformVersion)",
+    "inputs": [
+        {
+            "name": "terraformVersion",
+            "type": "string",
+            "label": "Version",
+            "defaultValue": "0.12.3",
+            "required": true,
+            "helpMarkDown": "The version of Terraform which should be installed on the agent if not already present"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": ".bin/Index.js"
+        }
+    },
+    "outputVariables": [
+        {
+            "name": "terraformLocation",
+            "description": "The location of the terraform binary that was installed on the agent."
+        }
+    ],
+    "messages": {
+        "VerifyTerraformInstallation": "Verifying Terraform installation...",
+        "InputVersionNotValidSemanticVersion": "Input version %s is not a valid semantic version",
+        "TerraformNotFoundInFolder": "Terraform executable not found in path %s",
+        "OperatingSystemNotSupported": "Operating system %s is not supported",
+        "ArchitectureNotSupported": "Architecture %s is not supported",
+        "TerraformDownloadFailed": "Failed to download Terraform from url %s. Error %s"
+    }
+}
