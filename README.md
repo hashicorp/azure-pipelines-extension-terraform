@@ -2,10 +2,6 @@
 
 This repository contains the source for an Azure Pipelines extension that provides Tasks to easily install and use Terraform.
 
-## Goals
-
-The goals of this project is to make using Terraform within Azure DevOps just as easy as it is locally, mainly by abstracting the concerns of managing Service Principals and Storage access keys.
-
 ## Usage
 
 Once the task has been installed from you can use it in any Azure Pipelines build or release job.  It is available in both the GUI pipeline editor as well as yaml templates.
@@ -41,13 +37,14 @@ Once the task has been installed from you can use it in any Azure Pipelines buil
 
 | Name | Type | Description |
 |-|-|-|
-| `initialize` | `bool` | Show `terraform init` run before executing the CLI script |
+| `initialize` | `bool` | Should `terraform init` run before executing the CLI script |
 | `scriptLocation` | `pickList` | How will the CLI script be provided? <br /> *Options*: `Inline script`, `Script path`|
 | `scriptPath` | `filePath` | The path to the CLI script to execute |
 | `script` | `string` | The inline script to execute |
 
 #### Advanced
 *Advanced options available for all non-CLI commands*
+
 | Name | Type | Description |
 |-|-|-|
 | `args` | `string` | Additional arguments to pass to the Terraform command being run |
