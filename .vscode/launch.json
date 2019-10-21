@@ -1,0 +1,47 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Terraform",
+            //"stopOnEntry": true,
+            "envFile": "${workspaceFolder}/Tasks/Terraform/.env",
+            "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
+            "preLaunchTask": "Compile TypeScript",
+            "internalConsoleOptions": "openOnSessionStart",
+            // "localRoot": "${workspaceFolder}/Tasks/Terraform/src",
+            // "remoteRoot": "${workspaceFolder}/Tasks/Terraform/.bin",
+            // "runtimeArgs": ["--preserve-symlinks"],
+            "sourceMaps": true,
+            //"smartStep": false,
+            "outputCapture": "std",
+            "outFiles": [
+                "${workspaceFolder}/Tasks/Terraform/.bin/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "TerraformInstaller",
+            //"stopOnEntry": true,
+            "envFile": "${workspaceFolder}/Tasks/TerraformInstaller/.env",
+            "program": "${workspaceFolder}/Tasks/TerraformInstaller/src/Index.ts",
+            "preLaunchTask": "Compile TypeScript",
+            "internalConsoleOptions": "openOnSessionStart",
+            // "localRoot": "${workspaceFolder}/Tasks/Terraform/src",
+            // "remoteRoot": "${workspaceFolder}/Tasks/Terraform/.bin",
+            // "runtimeArgs": ["--preserve-symlinks"],
+            "sourceMaps": true,
+            //"smartStep": false,
+            "outputCapture": "std",
+            "outFiles": [
+                "${workspaceFolder}/Tasks/TerraformInstaller/.bin/**/*.js"
+            ]
+        }
+    ]
+}
+

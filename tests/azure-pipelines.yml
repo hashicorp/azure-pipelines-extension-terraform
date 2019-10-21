@@ -1,0 +1,18 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - tests/*
+
+stages:
+- stage: Test
+  jobs:
+  - template: test-init-validate-plan-apply-destroy.yml
+  - template: test-cli.yml
+  - template: test-installer.yml
+
+
+

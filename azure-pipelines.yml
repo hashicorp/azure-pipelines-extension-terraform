@@ -1,0 +1,31 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - tests/*
+    - readme.md
+
+pr:
+  autoCancel: true
+
+# Build and Test
+stages:
+- stage: Build
+  displayName: Build and Test
+  jobs:
+  - template: azure-pipelines-extension-build.yml
+    parameters:
+      publisher: jlorich
+      tasks:
+        - TerraformInstaller
+        - Terraform
+
+# Staging Extension release
+- stage: Release
+  jobs:
+  - template: azure-pipelines-extension-release.yml
+    parameters:
+      serviceUrl: https://dev.azure.com/jlorich

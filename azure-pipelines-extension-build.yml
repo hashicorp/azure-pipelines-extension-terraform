@@ -1,0 +1,46 @@
+parameters:
+  publisher:
+  tasks:
+
+jobs:
+- job: Build
+  displayName: Build and Test
+
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  # Use GitVersion to determine the appropriate Semantic Version Number
+  - task: GitVersion@5
+    inputs:
+      runtime: 'core'
+  
+  # Set the BuildNumber
+  - script: |
+      echo "##vso[build.updatebuildnumber]$(GitVersion.MajorMinorPatch)"
+    displayName: 'Set Bulid Number'
+
+  # Build and test each listed task
+  - ${{ each taskName in parameters.tasks }}:
+    - template: azure-pipelines-task-build.yml
+      parameters:
+        taskName: ${{ taskName }}
+  
+  # Package the extension manifest
+  - script: |
+      # Display command output and fail immediately on any errors
+      set -e -x
+
+      # Update the extension version
+      sed -i -E 's/"version":\s"[0-9/.]+"/"version": "$(GitVersion.MajorMinorPatch)"/g' vss-extension.json
+
+      # Update the publisher
+      sed -i -E 's/"publisher":\s"[a-zA-Z0-9_-]+"/"publisher": "${{ parameters.publisher }}"/g' vss-extension.json
+    
+      # Copy the extension manifest to the output directory
+      cp ./vss-extension.json $(Build.StagingDirectory)/
+    displayName: Package the extension manifest
+
+  # Publish the finished extension to a pipeline artifact 
+  - publish: $(Build.StagingDirectory)
+    artifact: extension

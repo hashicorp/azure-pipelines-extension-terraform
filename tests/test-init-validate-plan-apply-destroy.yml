@@ -1,0 +1,43 @@
+jobs:
+# Validates a valid template
+- job: InitPlanApplyDestroy
+  displayName: Test init, plan, apply, and destroy
+  dependsOn:
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: terraform@0
+    inputs:
+      command: 'init'
+      cwd: 'tests/test-template-azure'
+      providerAzureConnectedServiceName: 'MTC Denver Sandbox'
+      backendAzureProviderStorageAccountName: 'mtcdenterraformsandbox'
+    displayName: Terraform Init
+
+  - task: terraform@0
+    inputs:
+      command: 'validate'
+      cwd: 'tests/test-template-azure/'
+    displayName: 'Terraform Validate'
+      
+  - task: terraform@0
+    inputs:
+      command: 'plan'
+      cwd: 'tests/test-template-azure'
+      providerAzureConnectedServiceName: 'MTC Denver Sandbox'
+    displayName: Terraform Plan
+
+  - task: terraform@0
+    inputs:
+      command: 'apply'
+      cwd: 'tests/test-template-azure'
+      providerAzureConnectedServiceName: 'MTC Denver Sandbox'
+    displayName: Terraform Apply
+
+  - task: terraform@0
+    inputs:
+      command: 'destroy'
+      cwd: 'tests/test-template-azure'
+      providerAzureConnectedServiceName: 'MTC Denver Sandbox'
+    displayName: Terraform Destroy

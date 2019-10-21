@@ -1,0 +1,25 @@
+jobs:
+# Validates a valid template
+- job: CLI
+  displayName: Test CLI
+  dependsOn:
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: terraform@0
+    inputs:
+      command: 'CLI'
+      providerAzureConnectedServiceName: 'MTC Denver Sandbox'
+      backendAzureProviderStorageAccountName: 'mtcdenterraformsandbox'
+      backendAzureStateFileKey: 'tfclitest.tfstate'
+      cwd: tests/test-template-azure
+      script: |
+        # Validate
+        terraform validate
+
+        # Plan
+        terraform plan -input=false -out=testplan.tf
+
+    displayName: Run Terraform CLI
+
