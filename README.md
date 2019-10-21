@@ -1,4 +1,4 @@
-# A Terraform CLI Extension for Azure DevOps
+# Azure Pipelines Extension for Terraform
 
 This repository contains the source for an Azure Pipelines extension that provides Tasks to easily install and use Terraform.
 
