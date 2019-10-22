@@ -4,37 +4,81 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        // Terraform init
         {
             "type": "node",
             "request": "launch",
-            "name": "Terraform",
-            //"stopOnEntry": true,
+            "name": "Terraform Init - Azure",
             "envFile": "${workspaceFolder}/Tasks/Terraform/.env",
+            "env": {
+                "INPUT_command": "init",
+                "INPUT_cwd": "./tests/test-template-azure",
+                "INPUT_provider": "Azure",
+                "INPUT_backendAzureProviderStorageAccountName": "mtcdenterraformsandbox",
+                "INPUT_providerAzureConnectedServiceName": "AzureProviderConnection"
+            },
             "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
             "preLaunchTask": "Compile TypeScript",
             "internalConsoleOptions": "openOnSessionStart",
-            // "localRoot": "${workspaceFolder}/Tasks/Terraform/src",
-            // "remoteRoot": "${workspaceFolder}/Tasks/Terraform/.bin",
-            // "runtimeArgs": ["--preserve-symlinks"],
             "sourceMaps": true,
-            //"smartStep": false,
             "outputCapture": "std",
             "outFiles": [
                 "${workspaceFolder}/Tasks/Terraform/.bin/**/*.js"
             ]
         },
+
+        // Terraform CLI
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Terraform CLI - Azure",
+            "envFile": "${workspaceFolder}/Tasks/Terraform/.env",
+            "env": {
+                "INPUT_command": "CLI",
+                "INPUT_script": "terraform init \n terraform plan",
+                "INPUT_cwd": "./tests/test-template-azure"
+            },
+            "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
+            "preLaunchTask": "Compile TypeScript",
+            "internalConsoleOptions": "openOnSessionStart",
+            "sourceMaps": true,
+            "outputCapture": "std",
+            "outFiles": [
+                "${workspaceFolder}/Tasks/Terraform/.bin/**/*.js"
+            ]
+        },
+
+        // Terraform Init Remote Backend 
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Terraform Init - Remote",
+            "envFile": "${workspaceFolder}/Tasks/Terraform/.env",
+            "env": {
+                "INPUT_command": "init",
+                "INPUT_cwd": "./tests/test-template-remote",
+                "INPUT_backend": "Remote",
+                "INPUT_provider": "Remote"
+            },
+            "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
+            "preLaunchTask": "Compile TypeScript",
+            "internalConsoleOptions": "openOnSessionStart",
+            "sourceMaps": true,
+            "outputCapture": "std",
+            "outFiles": [
+                "${workspaceFolder}/Tasks/Terraform/.bin/**/*.js"
+            ]
+        },
+
+        // Terraform Installer
         {
             "type": "node",
             "request": "launch",
             "name": "TerraformInstaller",
-            //"stopOnEntry": true,
             "envFile": "${workspaceFolder}/Tasks/TerraformInstaller/.env",
             "program": "${workspaceFolder}/Tasks/TerraformInstaller/src/Index.ts",
             "preLaunchTask": "Compile TypeScript",
             "internalConsoleOptions": "openOnSessionStart",
-            // "localRoot": "${workspaceFolder}/Tasks/Terraform/src",
-            // "remoteRoot": "${workspaceFolder}/Tasks/Terraform/.bin",
-            // "runtimeArgs": ["--preserve-symlinks"],
             "sourceMaps": true,
             //"smartStep": false,
             "outputCapture": "std",

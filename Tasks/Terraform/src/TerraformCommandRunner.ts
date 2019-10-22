@@ -6,15 +6,17 @@ import { ToolRunner, IExecOptions, IExecSyncResult } from "azure-pipelines-task-
 import { TaskOptions } from "./TaskOptions";
 import { TerraformProvider } from "./Provider/TerraformProvider";
 import { AzureProvider } from "./Provider/Azure/AzureProvider";
-import { TerraformProviderType } from "./Provider/TerraformProviderType";
 import path = require("path");
 
+/**
+ * Class to handle running Terraform commands
+ */
 @injectable()
 export class TerraformCommandRunner {
     private readonly terraform : ToolRunner;
 
     public constructor(
-        private provider : AzureProvider,
+        private provider : TerraformProvider,
         private options: TaskOptions
         
     ) {
