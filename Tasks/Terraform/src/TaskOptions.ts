@@ -1,7 +1,8 @@
 import task = require('azure-pipelines-task-lib/task');
 import { injectable } from "inversify";
+import { taskVariable } from "./Options";
 
-/**
+ /**
  * Strong-type accessor for Task configuration
  */
 @injectable()
@@ -21,5 +22,7 @@ export class TaskOptions {
     // Advanced
     public cwd : string = "";
     public args : string = "";
+
+    @taskVariable("Agent.TempDirectory")
     public tempDir : string = "";
 }

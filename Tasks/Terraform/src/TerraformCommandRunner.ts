@@ -26,7 +26,7 @@ export class TerraformCommandRunner {
     /**
      * Initializes Terraform with the backend configuration specified from the provider
      */
-    public async init(args: Array<string> = [], authenticate: boolean = true) {
+    public async init(args: Array<string> = [], authenticate: boolean = false) {
         let backendConfigOptions = await this.provider.getBackendConfigOptions();
 
         // Set the backend configuration values
@@ -38,7 +38,7 @@ export class TerraformCommandRunner {
             args.push(`-backend-config=${key}=${value}`);
         }
 
-        await this.exec(["init", ...args], false);
+        await this.exec(["init", ...args], authenticate);
     }
 
    /**

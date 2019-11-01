@@ -20,11 +20,9 @@ export class RemoteProvider extends TerraformProvider {
      * Create a terraform.rc file in the temp directory with the appropriate credentials
      */
     public async authenticate() : Promise<{ [key: string]: string; }> {
-       let remoteOptions = new RemoteConnectedServiceOptions();
-
         var config = `
-            credentials "${remoteOptions.backendRemoteUrl}" {
-                 token = "${remoteOptions.backendRemoteToken}"
+            credentials "${this.options.backendRemoteUrl}" {
+                 token = "${this.options.backendRemoteToken}"
             }
         `;
 

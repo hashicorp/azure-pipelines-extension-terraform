@@ -19,7 +19,8 @@ export class TerraformTask {
     public async run() {
         switch(this.options.command) {
             case "init":
-                await this.terraform.init(["-input=false"]);
+                let authenticate = this.options.provider == "Remote";
+                await this.terraform.init(["-input=false"], authenticate);
                 break;
             case "validate":
                 await this.terraform.exec(["validate"], false);

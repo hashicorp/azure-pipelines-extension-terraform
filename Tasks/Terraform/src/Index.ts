@@ -37,7 +37,7 @@ container.bind<RemoteConnectedServiceOptions>(RemoteConnectedServiceOptions).toD
 // Bind Terraform Provider
 let options = container.get(TaskOptions);
 
-switch (options.provider) {
+switch (options.provider || options.backend) {
     case "Azure":
         container.bind(TerraformProvider).to(AzureProvider);
         break;
@@ -54,6 +54,6 @@ var terraformTask = container.get<TerraformTask>(TerraformTask);
 terraformTask.run().then(function() 
 {
     task.setResult(TaskResult.Succeeded, "Terraform successfully ran");
-}, function() {
-    task.setResult(TaskResult.Failed, "Terraform failed to run");
+}, function(reason) {
+    task.setResult(TaskResult.Failed, "Terraform failed to run" + reason);
 });

@@ -13,12 +13,13 @@
             "env": {
                 "INPUT_command": "init",
                 "INPUT_cwd": "./tests/test-template-azure",
-                "INPUT_provider": "Azure",
+                "INPUT_backend": "Azure",
                 "INPUT_backendAzureProviderStorageAccountName": "mtcdenterraformsandbox",
-                "INPUT_providerAzureConnectedServiceName": "AzureProviderConnection"
+                "INPUT_providerAzureConnectedServiceName": "AzureProviderConnection",
+                "INPUT_backendAzureUseProviderConnectedServiceForBackend": "true"
             },
             "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
-            "preLaunchTask": "Compile TypeScript",
+            "preLaunchTask": "Compile Terraform",
             "internalConsoleOptions": "openOnSessionStart",
             "sourceMaps": true,
             "outputCapture": "std",
@@ -39,7 +40,7 @@
                 "INPUT_cwd": "./tests/test-template-azure"
             },
             "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
-            "preLaunchTask": "Compile TypeScript",
+            "preLaunchTask": "Compile Terraform",
             "internalConsoleOptions": "openOnSessionStart",
             "sourceMaps": true,
             "outputCapture": "std",
@@ -61,7 +62,7 @@
                 "INPUT_provider": "Remote"
             },
             "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
-            "preLaunchTask": "Compile TypeScript",
+            "preLaunchTask": "Compile Terraform",
             "internalConsoleOptions": "openOnSessionStart",
             "sourceMaps": true,
             "outputCapture": "std",
@@ -77,7 +78,7 @@
             "name": "TerraformInstaller",
             "envFile": "${workspaceFolder}/Tasks/TerraformInstaller/.env",
             "program": "${workspaceFolder}/Tasks/TerraformInstaller/src/Index.ts",
-            "preLaunchTask": "Compile TypeScript",
+            "preLaunchTask": "Compile TerraformInstaller",
             "internalConsoleOptions": "openOnSessionStart",
             "sourceMaps": true,
             //"smartStep": false,
