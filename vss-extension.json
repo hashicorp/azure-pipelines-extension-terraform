@@ -13,6 +13,17 @@
     "categories": [
         "Azure Pipelines"
     ],
+    "Tags": [ 
+        "Vault",
+        "HashiCorp",
+        "Secrets",
+        "Release", 
+        "DevOps"
+    ],
+    "icons": {
+        "default": "images/icon.png",
+        "large": "images/icon.png"
+    },
     "files": [
         {
             "path": "Tasks/TerraformInstaller"
