@@ -52,6 +52,16 @@
             "properties": {
                 "name": "Tasks/Terraform"
             }
+        },
+        {
+            "id": "506f3bf4-69c9-4812-a879-ccfc035f174c",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/TerraformEnterprise"
+            }
         }
     ]
 }
