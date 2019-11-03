@@ -26,6 +26,18 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Compile Terraform Enterprise",
+            "type": "typescript",
+            "tsconfig": "Tasks/TerraformEnterprise/tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
