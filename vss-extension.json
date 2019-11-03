@@ -30,6 +30,9 @@
         },
         {
             "path": "Tasks/Terraform"
+        },
+        {
+            "path": "Tasks/TerraformEnterprise"
         }
     ],
     "contributions": [
