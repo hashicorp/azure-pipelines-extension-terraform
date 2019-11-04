@@ -69,14 +69,14 @@
         {
         
             "id": "terraform-cloud-endpoint-type",
-            "description": "Credentials for task invoking HashiCorp Vault",
+            "description": "Credentials for tasks invoking Terraform Cloud and Enterprise",
             "type": "ms.vss-endpoint.service-endpoint-type",
             "targets": [
                 "ms.vss-endpoint.endpoint-types"
             ],
             "properties": {
-                "name": "vaultServiceEndpoint",
-                "displayName": "Vault",
+                "name": "terraformServiceEndpoint",
+                "displayName": "Terraform Cloud and Enterprise",
                 "authenticationSchemes": [
                     {
                         "id": "endpoint-auth-scheme-token",
