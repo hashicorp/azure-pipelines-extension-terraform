@@ -7,6 +7,10 @@ jobs:
     vmImage: 'Ubuntu-16.04'
 
   steps:
+  - task: terraformInstaller@0
+    inputs:
+      terraformVersion: '0.12.13'
+  
   - task: terraform@0
     inputs:
       command: 'CLI'
