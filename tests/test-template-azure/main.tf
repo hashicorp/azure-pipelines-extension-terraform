@@ -2,6 +2,11 @@ terraform {
   backend "azurerm" {}
 }
 
+variable "environment" {
+  default = "test"
+}
+
+
 provider "azurerm" {
   version = "=1.35.0"
 }

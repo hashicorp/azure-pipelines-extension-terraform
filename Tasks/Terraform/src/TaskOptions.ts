@@ -19,6 +19,11 @@ export class TaskOptions {
     public script : string = "";
     public initialize : boolean = true;
 
+    // Plan
+    public variables : string = "";
+    public outputFile : string = "";
+    public planFile : string = "";
+
     // Advanced
     public cwd : string = "";
     public args : string = "";

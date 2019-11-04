@@ -28,6 +28,55 @@
             ]
         },
 
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Terraform Plan - Azure",
+            "envFile": "${workspaceFolder}/Tasks/Terraform/.env",
+            "env": {
+                "INPUT_command": "plan",
+                "INPUT_cwd": "./tests/test-template-azure",
+                "INPUT_backend": "Azure",
+                "INPUT_backendAzureProviderStorageAccountName": "mtcdenterraformsandbox",
+                "INPUT_providerAzureConnectedServiceName": "AzureProviderConnection",
+                "INPUT_backendAzureUseProviderConnectedServiceForBackend": "true",
+                "INPUT_outputFile": "output.plan",
+                "INPUT_variables": "{\"environment\": \"dev\"}"
+            },
+            "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
+            "preLaunchTask": "Compile Terraform",
+            "internalConsoleOptions": "openOnSessionStart",
+            "sourceMaps": true,
+            "outputCapture": "std",
+            "outFiles": [
+                "${workspaceFolder}/Tasks/Terraform/.bin/**/*.js"
+            ]
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Terraform Apply - Azure",
+            "envFile": "${workspaceFolder}/Tasks/Terraform/.env",
+            "env": {
+                "INPUT_command": "apply",
+                "INPUT_cwd": "./tests/test-template-azure",
+                "INPUT_backend": "Azure",
+                "INPUT_backendAzureProviderStorageAccountName": "mtcdenterraformsandbox",
+                "INPUT_providerAzureConnectedServiceName": "AzureProviderConnection",
+                "INPUT_backendAzureUseProviderConnectedServiceForBackend": "true",
+                "INPUT_planFile": "output.plan"
+            },
+            "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
+            "preLaunchTask": "Compile Terraform",
+            "internalConsoleOptions": "openOnSessionStart",
+            "sourceMaps": true,
+            "outputCapture": "std",
+            "outFiles": [
+                "${workspaceFolder}/Tasks/Terraform/.bin/**/*.js"
+            ]
+        },
+
         // Terraform CLI
         {
             "type": "node",

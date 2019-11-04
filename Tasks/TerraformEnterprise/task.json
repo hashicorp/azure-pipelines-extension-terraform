@@ -37,21 +37,6 @@
             }
         },
         {
-            "name": "url",
-            "type": "string",
-            "label": "URL of API Endpoint",
-            "required": true,
-            "defaultValue": "https://app.terraform.io/api/v2/",
-            "helpMarkDown": "Url of Terraform Cloud or Terraform Enterprise. Defaults to https://app.terraform.io/api/v2/."
-        },
-        {
-            "name": "token",
-            "type": "string",
-            "label": "Terraform API Token",
-            "required": true,
-            "helpMarkDown": "Token to authenticate to Terraform API."
-        },
-        {
             "name": "workspaceName",
             "type": "string",
             "label": "Name of Workspace",

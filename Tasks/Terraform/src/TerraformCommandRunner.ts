@@ -41,6 +41,31 @@ export class TerraformCommandRunner {
         await this.exec(["init", ...args], authenticate);
     }
 
+    /**
+     * Initializes Terraform with the backend configuration specified from the provider
+     */
+    public async plan(args: Array<string> = [], variables : string, outputFile : string) {
+
+        if (variables && variables != ""){
+            let parsedVariables = JSON.parse(variables);
+
+            // Set the variables
+            //
+            // Values are not quoted intentionally - the way node spawns processes it will 
+            // see quotes as part of the values
+            for (let key in parsedVariables) {
+                let value = parsedVariables[key];
+                args.push(`-var=${key}=${value}`);
+            }
+        }
+
+        if (outputFile != "") {
+            args.push("-out=" + outputFile);
+        }
+
+        await this.exec(["plan", ...args], true);
+    }
+
    /**
      * Executes a script within an authenticated Terraform environment
      * @param script The location of the script to run
