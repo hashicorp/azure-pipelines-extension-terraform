@@ -37,7 +37,12 @@
             "env": {
                 "INPUT_command": "CLI",
                 "INPUT_script": "terraform init \n terraform plan",
-                "INPUT_cwd": "./tests/test-template-azure"
+                "INPUT_cwd": "./tests/test-template-azure",
+                "INPUT_provider": "Azure",
+                "INPUT_backend": "Azure",
+                "INPUT_backendAzureProviderStorageAccountName": "mtcdenterraformsandbox",
+                "INPUT_providerAzureConnectedServiceName": "AzureProviderConnection",
+                "INPUT_backendAzureUseProviderConnectedServiceForBackend": "true"
             },
             "program": "${workspaceFolder}/Tasks/Terraform/src/Index.ts",
             "preLaunchTask": "Compile Terraform",
