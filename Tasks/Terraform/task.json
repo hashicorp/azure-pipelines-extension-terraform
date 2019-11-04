@@ -224,7 +224,7 @@
 
         {
             "name": "variables",
-            "type": "textarea",
+            "type": "multiLine",
             "label": "Variables",
             "defaultValue": "",
             "required": false,
