@@ -67,37 +67,45 @@
             }
         },
         {
+        
             "id": "terraform-cloud-endpoint-type",
-            "name": "terraformServiceEndpoint",
-            "displayName": "Terraform Cloud and Enterprise",
-            "authenticationSchemes": [
-                {
-                    "id": "endpoint-auth-scheme-token",
-                    "name": "token",
-                    "displayName": "i18n:Access Token",
-                    "type": "ms.vss-endpoint.endpoint-auth-scheme-token",
-                    "description": "i18n:Token based endpoint authentication scheme",
-                    "inputDescriptors": [
-                        {
-                            "id": "apitoken",
-                            "name": "i18n:Token",
-                            "description": "i18n:Token to use when accessing Terraform cloud and Enterprise",
-                            "inputMode": "textbox",
-                            "isConfidential": true,
-                            "validation": {
-                                "isRequired": true,
-                                "dataType": "string",
-                                "maxLength": 300
-                            }
-                        }
-                    ]
-                }
+            "description": "Credentials for task invoking HashiCorp Vault",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [
+                "ms.vss-endpoint.endpoint-types"
             ],
-            "url": {
-                "displayName": "i18n:Terraform Instance URL",
-                "required": true,
-                "value": "https://app.terraform.io",
-                "helpText": "i18n:Client connection endpoint for the Terraform Cloud or Enterprise instance. Prefix the value with \"https://\"."
+            "properties": {
+                "name": "vaultServiceEndpoint",
+                "displayName": "Vault",
+                "authenticationSchemes": [
+                    {
+                        "id": "endpoint-auth-scheme-token",
+                        "name": "token",
+                        "displayName": "i18n:Access Token",
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-token",
+                        "description": "i18n:Token based endpoint authentication scheme",
+                        "inputDescriptors": [
+                            {
+                                "id": "apitoken",
+                                "name": "i18n:Token",
+                                "description": "i18n:Token to use when accessing Terraform cloud and Enterprise",
+                                "inputMode": "textbox",
+                                "isConfidential": true,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string",
+                                    "maxLength": 300
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "url": {
+                    "displayName": "i18n:Terraform Instance URL",
+                    "required": true,
+                    "value": "https://app.terraform.io",
+                    "helpText": "i18n:Client connection endpoint for the Terraform Cloud or Enterprise instance. Prefix the value with \"https://\"."
+                }
             }
         }
     ]
