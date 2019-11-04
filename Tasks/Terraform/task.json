@@ -59,7 +59,7 @@
             "defaultValue": "Azure",
             "required": true,
             "helpMarkDown": "Select a Terraform provider",
-            "visibleRule": "command != init && command != validate",
+            "visibleRule": "command != validate",
             "options": {
                 "Azure": "Azure",
                 "AWS": "AWS",
@@ -146,7 +146,7 @@
 
         {
             "name": "backendAzureUseProviderConnectedServiceForBackend",
-            "type": "bool",
+            "type": "boolean",
             "label": "Use provider connection for backend",
             "defaultValue": "true",
             "required": false,
