@@ -67,6 +67,7 @@
             }
         },
         {
+            "id": "terraform-cloud-endpoint-type",
             "name": "terraformServiceEndpoint",
             "displayName": "Terraform Cloud and Enterprise",
             "authenticationSchemes": [
