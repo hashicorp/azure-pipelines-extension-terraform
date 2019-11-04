@@ -19,6 +19,13 @@
     "instanceNameFormat": "Terraform Enterprise",
     "inputs": [
         {
+            "name": "terraformCloudServiceConnection",
+            "type": "connectedService:terraformServiceEndpoint",
+            "label": "Terraform Cloud Connection",
+            "required": true,
+            "helpMarkDown": "Select the Terraform Cloud/Enterprise endpoint."
+        },
+        {
             "name": "command",
             "type": "picklist",
             "label": "Command",
