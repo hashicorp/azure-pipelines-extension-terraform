@@ -11,12 +11,13 @@
     "test": "ts-mocha test/**/*.spec.ts"
   },
   "dependencies": {
-    "@azure/arm-storage": "^11.0.0",
-    "@azure/ms-rest-nodeauth": "^3.0.3",
+    "@azure/arm-storage": "^9.0.1",
+    "@azure/ms-rest-nodeauth": "^2.0.2",
     "azure-pipelines-task-lib": "^2.9.3",
     "config": "^3.2.1",
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13",
+    "request-prom": "^4.0.1",
     "tsyringe": "^3.3.0"
   },
   "devDependencies": {

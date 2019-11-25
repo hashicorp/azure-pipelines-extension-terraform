@@ -6,36 +6,54 @@ import task = require('azure-pipelines-task-lib/task');
 import { TerraformTask } from './TerraformTask';
 import { TerraformCommandRunner } from "./TerraformCommandRunner";
 import { TaskOptions } from './TaskOptions';
+import { Options } from './Options';
 
-import { AzureProvider } from './Provider/Azure/AzureProvider'
 import { TerraformProvider } from "./Provider/TerraformProvider";
-import { TerraformProviderType } from "./Provider/TerraformProviderType";
+import { AzureProvider } from './Provider/Azure/AzureProvider'
+import { RemoteProvider } from './Provider/Remote/RemoteProvider'
+import { RemoteConnectedServiceOptions } from "./Provider/Remote/RemoteConnectedServiceOptions";
+import { AzureOptions } from "./Provider/Azure/AzureOptions"
 
-import { TYPES } from "./types";
-
+// Configure DI
 let container = new Container();
-let options = new TaskOptions();
 
-container.bind(TerraformTask).toSelf()
-container.bind(TaskOptions).toSelf()
+// Bind Task
+container.bind(TerraformTask).toSelf();
 container.bind(TerraformCommandRunner).toSelf();
 
-container.bind(AzureProvider).toSelf()
+// Bind Options
+container.bind<TaskOptions>(TaskOptions).toDynamicValue((context) => {
+    return Options.load(TaskOptions); 
+});
 
-// switch (options.terraformProviderType) {
-//     case TerraformProviderType.Azure:
-//         container.bind(AzureProvider).to(AzureProvider);
-//         break;
-//     default:
-//         break;
-// }
+container.bind<AzureOptions>(AzureOptions).toDynamicValue((context) => {
+    return Options.load(AzureOptions); 
+});
+
+container.bind<RemoteConnectedServiceOptions>(RemoteConnectedServiceOptions).toDynamicValue((context) => {
+    return Options.load(RemoteConnectedServiceOptions); 
+});
+
+// Bind Terraform Provider
+let options = container.get(TaskOptions);
+
+switch (options.provider || options.backend) {
+    case "Azure":
+        container.bind(TerraformProvider).to(AzureProvider);
+        break;
+    case "Remote":
+        container.bind(TerraformProvider).to(RemoteProvider)
+    default:
+        break;
+}
 
 
+// Get and run the task
 var terraformTask = container.get<TerraformTask>(TerraformTask);
 
 terraformTask.run().then(function() 
 {
     task.setResult(TaskResult.Succeeded, "Terraform successfully ran");
-}, function() {
-    task.setResult(TaskResult.Failed, "Terraform failed to run");
+}, function(reason) {
+    task.setResult(TaskResult.Failed, "Terraform failed to run" + reason);
 });

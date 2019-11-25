@@ -19,16 +19,23 @@ export class TerraformTask {
     public async run() {
         switch(this.options.command) {
             case "init":
-                await this.terraform.init(["-input=false"]);
+                let authenticate = this.options.provider == "Remote";
+                await this.terraform.init(["-input=false"], authenticate);
                 break;
             case "validate":
                 await this.terraform.exec(["validate"], false);
                 break;
             case "plan":
-                await this.terraform.exec(["plan", "-input=false"]);
+                await this.terraform.plan(["-input=false"], this.options.variables, this.options.outputFile);
                 break;
             case "apply":
-                await this.terraform.exec(["apply", "-input=false", "-auto-approve"]);
+                let args = ["apply", "-input=false", "-auto-approve"];
+                
+                if (this.options.planFile != "") {
+                    args.push(this.options.planFile);
+                }
+
+                await this.terraform.exec(args);
                 break;
             case "destroy":
                 await this.terraform.exec(["destroy", "-auto-approve=true"]);

@@ -3,18 +3,18 @@ import task = require('azure-pipelines-task-lib/task');
 import { ARMConnectedServiceOptions } from "./ARMConnectedServiceOptions";
 import { ARMAuthenticationMethod } from "./ARMAuthenticationMethod";
 import { TerraformProvider } from "../TerraformProvider";
-import { TaskOptions } from "../../TaskOptions";
 import { AzureStorageService } from "./AzureStorageService"
+import { AzureOptions } from "./AzureOptions";
 
 /**
  * Terraform Azure Provider and Backend
  */
 @injectable()
-export class AzureProvider {
+export class AzureProvider extends TerraformProvider {
     private armConnectedService: ARMConnectedServiceOptions | undefined = undefined;
     
-    constructor(private options : TaskOptions) {
-
+    constructor(private options : AzureOptions) {
+        super();
     }
 
     /**

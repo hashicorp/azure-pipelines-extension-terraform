@@ -6,15 +6,17 @@ import { ToolRunner, IExecOptions, IExecSyncResult } from "azure-pipelines-task-
 import { TaskOptions } from "./TaskOptions";
 import { TerraformProvider } from "./Provider/TerraformProvider";
 import { AzureProvider } from "./Provider/Azure/AzureProvider";
-import { TerraformProviderType } from "./Provider/TerraformProviderType";
 import path = require("path");
 
+/**
+ * Class to handle running Terraform commands
+ */
 @injectable()
 export class TerraformCommandRunner {
     private readonly terraform : ToolRunner;
 
     public constructor(
-        private provider : AzureProvider,
+        private provider : TerraformProvider,
         private options: TaskOptions
         
     ) {
@@ -24,7 +26,7 @@ export class TerraformCommandRunner {
     /**
      * Initializes Terraform with the backend configuration specified from the provider
      */
-    public async init(args: Array<string> = [], authenticate: boolean = true) {
+    public async init(args: Array<string> = [], authenticate: boolean = false) {
         let backendConfigOptions = await this.provider.getBackendConfigOptions();
 
         // Set the backend configuration values
@@ -36,7 +38,32 @@ export class TerraformCommandRunner {
             args.push(`-backend-config=${key}=${value}`);
         }
 
-        await this.exec(["init", ...args], false);
+        await this.exec(["init", ...args], authenticate);
+    }
+
+    /**
+     * Initializes Terraform with the backend configuration specified from the provider
+     */
+    public async plan(args: Array<string> = [], variables : string, outputFile : string) {
+
+        if (variables && variables != ""){
+            let parsedVariables = JSON.parse(variables);
+
+            // Set the variables
+            //
+            // Values are not quoted intentionally - the way node spawns processes it will 
+            // see quotes as part of the values
+            for (let key in parsedVariables) {
+                let value = parsedVariables[key];
+                args.push(`-var=${key}=${value}`);
+            }
+        }
+
+        if (outputFile != "") {
+            args.push("-out=" + outputFile);
+        }
+
+        await this.exec(["plan", ...args], true);
     }
 
    /**

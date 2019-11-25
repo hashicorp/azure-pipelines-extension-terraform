@@ -39,7 +39,10 @@ jobs:
     
       # Copy the extension manifest to the output directory
       cp ./vss-extension.json $(Build.StagingDirectory)/
-    displayName: Package the extension manifest
+
+      # Copy in any Image Assets
+      rsync -avr --ignore-errors ./images $(Build.StagingDirectory)
+    displayName: Package the extension manifest and metadata
 
   # Publish the finished extension to a pipeline artifact 
   - publish: $(Build.StagingDirectory)

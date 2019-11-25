@@ -13,12 +13,26 @@
     "categories": [
         "Azure Pipelines"
     ],
+    "Tags": [ 
+        "Vault",
+        "HashiCorp",
+        "Secrets",
+        "Release", 
+        "DevOps"
+    ],
+    "icons": {
+        "default": "images/icon.png",
+        "large": "images/icon.png"
+    },
     "files": [
         {
             "path": "Tasks/TerraformInstaller"
         },
         {
             "path": "Tasks/Terraform"
+        },
+        {
+            "path": "Tasks/TerraformEnterprise"
         }
     ],
     "contributions": [
@@ -40,6 +54,58 @@
             ],
             "properties": {
                 "name": "Tasks/Terraform"
+            }
+        },
+        {
+            "id": "506f3bf4-69c9-4812-a879-ccfc035f174c",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/TerraformEnterprise"
+            }
+        },
+        {
+        
+            "id": "terraform-cloud-endpoint-type",
+            "description": "Credentials for tasks invoking Terraform Cloud and Enterprise",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [
+                "ms.vss-endpoint.endpoint-types"
+            ],
+            "properties": {
+                "name": "terraformServiceEndpoint",
+                "displayName": "Terraform Cloud and Enterprise",
+                "authenticationSchemes": [
+                    {
+                        "id": "endpoint-auth-scheme-token",
+                        "name": "token",
+                        "displayName": "i18n:Access Token",
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-token",
+                        "description": "i18n:Token based endpoint authentication scheme",
+                        "inputDescriptors": [
+                            {
+                                "id": "apitoken",
+                                "name": "i18n:Token",
+                                "description": "i18n:Token to use when accessing Terraform cloud and Enterprise",
+                                "inputMode": "textbox",
+                                "isConfidential": true,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string",
+                                    "maxLength": 300
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "url": {
+                    "displayName": "i18n:Terraform Instance URL",
+                    "required": true,
+                    "value": "https://app.terraform.io",
+                    "helpText": "i18n:Client connection endpoint for the Terraform Cloud or Enterprise instance. Prefix the value with \"https://\"."
+                }
             }
         }
     ]

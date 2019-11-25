@@ -1,0 +1,77 @@
+{
+    "id": "506f3bf4-69c9-4812-a879-ccfc035f174c",
+    "name": "terraformEnterprise",
+    "friendlyName": "Terraform Enterprise",
+    "description": "A Task for Terraform Enterprise to manage workspaces, run plan, and apply",
+    "author": "HashiCorp",
+    "helpMarkDown": "",
+    "category": "Tool",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "demands": [],
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 1
+    },
+    "instanceNameFormat": "Terraform Enterprise",
+    "inputs": [
+        {
+            "name": "terraformCloudServiceConnection",
+            "type": "connectedService:terraformServiceEndpoint",
+            "label": "Terraform Cloud Connection",
+            "required": true,
+            "helpMarkDown": "Select the Terraform Cloud/Enterprise endpoint."
+        },
+        {
+            "name": "command",
+            "type": "picklist",
+            "label": "Command",
+            "defaultValue": "workspace",
+            "required": true,
+            "helpMarkDown": "Select the Terraform API command to call",
+            "options": {
+                "workspace": "Manage Workspace",
+                "queuePlan": "Queue Plan",
+                "confirmApply": "Confirm & Apply",
+                "discardRun": "Discard Run",
+                "addComment": "Add Comment",
+                "cancelRun": "Cancel Run",
+                "overrideContinue": "Override & Continue",
+                "checkRun": "Check Run Status"
+            }
+        },
+        {
+            "name": "workspaceName",
+            "type": "string",
+            "label": "Name of Workspace",
+            "required": true,
+            "helpMarkDown": "Name of Workspace.",
+            "visibleRule": "command = workspace"
+        },
+        {
+            "name": "action",
+            "type": "pickList",
+            "label": "Action",
+            "required": true,
+            "helpMarkDown": "Action to take.",
+            "visibleRule": "command = workspace",
+            "options": {
+               "create": "Create",
+               "update": "Update",
+               "delete": "Delete"
+            }
+        },
+    ],
+    "execution": {
+        "Node": {
+            "target": ".bin/Index.js"
+        }
+    },
+    "outputVariables": [
+    ],
+    "messages": {
+    }
+}

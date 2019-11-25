@@ -22,6 +22,7 @@ stages:
       tasks:
         - TerraformInstaller
         - Terraform
+        - TerraformEnterprise
 
 # Staging Extension release
 - stage: Release

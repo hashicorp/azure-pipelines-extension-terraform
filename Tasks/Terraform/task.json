@@ -24,6 +24,18 @@
             "visibleRule": "backend = Azure"
         },
         {
+            "name": "Plan",
+            "displayName": "Plan settings",
+            "isExpanded": true,
+            "visibleRule": "command = Plan"
+        },
+        {
+            "name": "Apply",
+            "displayName": "Apply settings",
+            "isExpanded": true,
+            "visibleRule": "command = Apply"
+        },
+        {
             "name": "CLI",
             "displayName": "CLI Script",
             "isExpanded": true,
@@ -59,7 +71,7 @@
             "defaultValue": "Azure",
             "required": true,
             "helpMarkDown": "Select a Terraform provider",
-            "visibleRule": "command != init && command != validate",
+            "visibleRule": "command != validate",
             "options": {
                 "Azure": "Azure",
                 "AWS": "AWS",
@@ -146,7 +158,7 @@
 
         {
             "name": "backendAzureUseProviderConnectedServiceForBackend",
-            "type": "bool",
+            "type": "boolean",
             "label": "Use provider connection for backend",
             "defaultValue": "true",
             "required": false,
@@ -209,6 +221,37 @@
             "helpMarkDown": "Name of the state file to use in the Terraform backend.",
             "groupName": "backendAzure"
         },
+
+        {
+            "name": "variables",
+            "type": "multiLine",
+            "label": "Variables",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "Plan",
+            "helpMarkDown": "A JSON key/value object to add as variables"
+        },
+        {
+            "name": "outputFile",
+            "type": "string",
+            "label": "Output file",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "Plan",
+            "helpMarkDown": "The plan file to output. If left blank no plan file will be generated and output will only be visible in the logs."
+        },
+
+        {
+            "name": "planFile",
+            "type": "filePath",
+            "label": "Plan File",
+            "defaultValue": "",
+            "required": false,
+            "groupName": "Apply",
+            "helpMarkDown": "Path to the plan file to apply. If no plan file is specified the default values will be applied"
+        },
+
+        
         {
             "name": "args",
             "type": "string",
