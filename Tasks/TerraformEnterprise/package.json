@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@azure/arm-storage": "^9.0.1",
-    "@azure/ms-rest-nodeauth": "^2.0.2",
+    "@azure/ms-rest-nodeauth": "^3.0.8",
     "azure-pipelines-task-lib": "^2.9.3",
     "config": "^3.2.1",
     "inversify": "^5.0.1",
