@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import tasks = require('azure-pipelines-task-lib/task');
 import tools = require('azure-pipelines-tool-lib/tool');
 import path = require('path');
