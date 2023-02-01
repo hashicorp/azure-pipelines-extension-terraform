@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import * as msRestNodeAuth from "@azure/ms-rest-nodeauth";
 import { injectable } from "inversify";
 import { ARMAuthenticationMethod } from "./ARMAuthenticationMethod";

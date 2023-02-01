@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import os = require("os");
 import task = require('azure-pipelines-task-lib/task');
 import fs = require("fs");

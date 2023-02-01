@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import task = require('azure-pipelines-task-lib/task');
 import { injectable } from "inversify";
 import { TaskOptions } from "./TaskOptions";

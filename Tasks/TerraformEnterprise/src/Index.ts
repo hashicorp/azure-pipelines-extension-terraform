@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import "reflect-metadata";
 import { Container } from "inversify";
 import { TaskResult } from "azure-pipelines-task-lib/task";
